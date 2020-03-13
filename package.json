@@ -1,0 +1,27 @@
+{
+  "name": "Miniboost",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "babel-node index.js",
+    "dev": "webpack --mode=development ",
+    "webpackRun": "babel-node dist/index.out.js",
+    "build": "babel index.js app.js -d bin/"
+  },
+  "dependencies": {
+    "proton-native": "^2.0.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/preset-react": "^7.8.3",
+    "@babel/preset-stage-0": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
