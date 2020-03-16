@@ -1,3 +1,4 @@
+const CSON = require('cson');
 import React, { Component } from "react";
 import {
   App,
@@ -11,6 +12,7 @@ const fs = require('fs');
 const path = require('path');
 
 export default class Categories extends Component {
+  boostdir = '';
   categories = [];
   catFiles = [];
   currCategory = {
@@ -24,12 +26,26 @@ export default class Categories extends Component {
     let filename = path.join(props.boostdir, 'boostnote.json');
     let config = JSON.parse(fs.readFileSync(filename, 'utf-8'));
     this.categories = config.folders;
+    this.boostdir = props.boostdir;
  }
 
   updateNoteList(key) {
-    let cat = this.categories.filter(c => c.key === key)[0];
+    const cat = this.categories.filter(c => c.key === key)[0];
+    const notePath = path.join(this.boostdir, 'notes');
+    const allFiles = fs.readdirSync(notePath);
+    const inCat = [];
+
     this.currCategory = cat;
-    console.log(cat);
+    allFiles.forEach((filename) => {
+      const file = fs.readFileSync(path.join(notePath, filename));
+      const note = CSON.parse(file);
+
+      if (note.folder === key) {
+        note.key = filename;
+        inCat.push(note);
+        this.catFiles = inCat;
+      }
+    });
   }
 
   render() {
