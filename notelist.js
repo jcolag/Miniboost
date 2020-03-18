@@ -1,22 +1,21 @@
 import React, { Component } from "react";
 import {
-  Button,
   Picker,
   Text,
   View
 } from "proton-native";
 
-const CSON = require('cson');
 const fs = require('fs');
 const path = require('path');
 
-export default class Categories extends Component {
+export default class NoteList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: props.categories,
-    };
- }
+      category: props.category,
+      notes: props.notes,
+    }
+  }
 
   render() {
     return (
@@ -35,7 +34,7 @@ export default class Categories extends Component {
             textAlign: 'left',
           }}
         >
-          Folders
+          { this.props.category.name } Notes
         </Text>
         <Picker
           style={{
@@ -48,11 +47,11 @@ export default class Categories extends Component {
           }}
           onValueChange={val => this.props.update(val)}
         >
-          { this.state.categories.map((cat, idx) => {
+          { this.props.notes.map((note, idx) => {
             return <Picker.Item
-              key={ cat.key }
-              label={ cat.name }
-              value={ cat.key }
+              key={ note.key }
+              label={ note.title }
+              value={ note.key }
             />
           }) }
         </Picker>

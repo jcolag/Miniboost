@@ -6,7 +6,7 @@
     "start": "babel-node index.js",
     "dev": "webpack --mode=development ",
     "webpackRun": "babel-node dist/index.out.js",
-    "build": "babel index.js app.js -d bin/"
+    "build": "babel index.js -d bin/"
   },
   "dependencies": {
     "cson": "^6.9.0",
