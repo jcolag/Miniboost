@@ -2,7 +2,7 @@ import React from "react";
 import { AppRegistry } from "proton-native";
 import MainWindow from "./mainwin";
 
-AppRegistry.registerComponent("example", <MainWindow />);
+AppRegistry.registerComponent("mainwindow", <MainWindow />);
 
 // ================================================================================
 // This is for hot reloading (this will be stripped off in production by webpack)

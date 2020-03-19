@@ -46,6 +46,7 @@ export default class MainWindow extends Component {
               stretch={true}
               style={{
                 backgroundColor: 'black',
+                border: '1px solid white',
                 color: 'white',
                 fontSize: '18pt',
                 height: '100%',

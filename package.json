@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "cson": "^6.9.0",
-    "proton-native": "^2.0.4"
+    "proton-native": "^2.0.4",
+    "uuid": "^7.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

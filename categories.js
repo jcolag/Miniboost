@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import {
-  Button,
   Picker,
   Text,
   View
 } from "proton-native";
 
-const CSON = require('cson');
 const fs = require('fs');
 const path = require('path');
 
@@ -32,6 +30,7 @@ export default class Categories extends Component {
           style={{
             color: 'white',
             fontSize: 24,
+            fontWeight: 'bold',
             textAlign: 'left',
           }}
         >

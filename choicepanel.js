@@ -12,16 +12,6 @@ const fs = require('fs');
 const path = require('path');
 
 export default class ChoicePanel extends Component {
-  boostdir = '';
-  categories = [];
-  catFiles = [];
-  currCategory = {
-    color: 'white',
-    key: '',
-    name: 'Unknown',
-  };
-  catNotes = [];
-
   constructor(props) {
     const filename = path.join(props.boostdir, 'boostnote.json');
     const config = JSON.parse(fs.readFileSync(filename, 'utf-8'));
@@ -91,6 +81,7 @@ export default class ChoicePanel extends Component {
           style={{
             backgroundColor: 'black',
             border: '1px solid white',
+            fontWeight: 'bold',
             color: 'white',
             fontSize: '18pt',
             width: '100%',

@@ -14,7 +14,7 @@ export default class NoteList extends Component {
     this.state = {
       category: props.category,
       notes: props.notes,
-    }
+    };
   }
 
   render() {
@@ -31,6 +31,7 @@ export default class NoteList extends Component {
           style={{
             color: 'white',
             fontSize: 24,
+            fontWeight: 'bold',
             textAlign: 'left',
           }}
         >
