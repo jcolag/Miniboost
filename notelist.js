@@ -18,6 +18,27 @@ export default class NoteList extends Component {
   }
 
   render() {
+    const notes = this.props.notes.sort(function (a, b) {
+      if (a.isPinned && !b.isPinned) {
+        return -1;
+      }
+
+      if (b.isPinned && !a.isPinned) {
+        return 1;
+      }
+
+      if (a.isStarred && !b.isStarred) {
+        return -1;
+      }
+
+      if (b.isStarred && !a.isStarred) {
+        return 1;
+      }
+
+      var adate = new Date(a.updatedAt);
+      var bdate = new Date(b.updatedAt);
+      return bdate - adate;
+    });
     return (
       <View style={{
         alignItems: 'flex-start',
@@ -48,7 +69,7 @@ export default class NoteList extends Component {
           }}
           onValueChange={val => this.props.update(val)}
         >
-          { this.props.notes.map((note, idx) => {
+          { notes.map((note, idx) => {
             return <Picker.Item
               key={ note.key }
               label={ note.title }

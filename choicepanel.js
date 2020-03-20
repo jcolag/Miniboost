@@ -54,8 +54,8 @@ export default class ChoicePanel extends Component {
 
   updateNote(key) {
     const note = this.state.catNotes.filter(c => c.key === key)[0];
-    this.setState({
-    });
+    this.props.updateNoteText(note);
+  }
   }
 
   render() {
@@ -73,7 +73,7 @@ export default class ChoicePanel extends Component {
           update={ this.boundUpdateNoteList }
         />
         <NoteList
-          category={ this.state.currCategory.name }
+          category={ this.state.currCategory }
           notes={ this.state.catNotes }
           update={ this.boundUpdateNote }
         />

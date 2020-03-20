@@ -12,9 +12,19 @@ export default class Categories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: props.categories,
+      categories: props.categories.sort(function (a, b) {
+        var aname = a.name.toUpperCase();
+        var bname = b.name.toUpperCase();
+        if (aname < bname) {
+          return -1;
+        }
+        if (aname > bname) {
+          return 1;
+        }
+        return 0;
+      }),
     };
- }
+  }
 
   render() {
     return (

@@ -3,10 +3,12 @@ import {
   App,
   TextInput,
   View,
-  Window,
+  Window
 } from "proton-native";
 import ChoicePanel from './choicepanel';
 
+const CSON = require('cson');
+const fs = require('fs');
 const path = require('path');
 const homedir = require('os').homedir();
 const boostdir = path.join(homedir, 'Boostnote');
@@ -17,7 +19,15 @@ export default class MainWindow extends Component {
     this.state = {
       note: null,
       text: '',
+      updateNoteText: this.updateNoteText.bind(this),
     };
+  }
+
+  updateNoteText(newNote) {
+    this.setState({
+      note: newNote,
+      text: newNote.content,
+    });
   }
 
   render() {
@@ -40,6 +50,7 @@ export default class MainWindow extends Component {
           }}>
             <ChoicePanel
               boostdir={boostdir}
+              updateNoteText={this.state.updateNoteText}
             />
             <TextInput
               multiline
