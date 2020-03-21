@@ -19,6 +19,7 @@ export default class MainWindow extends Component {
     this.state = {
       note: null,
       text: '',
+      timer: null,
       updateNoteText: this.updateNoteText.bind(this),
     };
   }
@@ -27,6 +28,45 @@ export default class MainWindow extends Component {
     this.setState({
       note: newNote,
       text: newNote.content,
+    });
+  }
+
+  noteUpdated(text) {
+    if (this.state.note === null || this.state.note.content === text) {
+      return;
+    }
+
+    if (this.state.timer !== null) {
+      clearTimeout(this.state.timer);
+    }
+
+    const firstLine = text.split('\n')[0];
+    const firstOrig = this.state.note.content.split('\n')[0];
+
+    if (firstLine !== firstOrig) {
+      this.state.note.title = firstLine.replace(/^#*\s*/, '');
+    }
+
+    const timer = setTimeout(function() {
+      this.saveNoteFile(this.state.note, text);
+    }.bind(this), 500);
+    this.setState({
+      timer: timer,
+    });
+  }
+
+  saveNoteFile(note, newText) {
+    const outfile = path.join(boostdir, 'notes', note.key);
+
+    note.content = newText;
+    note.updatedAt = (new Date()).toISOString();
+
+    const content = CSON.stringify(note, ' ', 2);
+
+    fs.writeFileSync(outfile, content);
+    clearTimeout(this.state.timer);
+    this.setState({
+      timer: null,
     });
   }
 
@@ -54,6 +94,7 @@ export default class MainWindow extends Component {
             />
             <TextInput
               multiline
+              onChangeText={text => this.noteUpdated(text)}
               stretch={true}
               style={{
                 backgroundColor: 'black',
