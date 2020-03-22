@@ -4,6 +4,7 @@ import {
   Text,
   View,
 } from "proton-native";
+import { v4 as uuidv4 } from "uuid";
 import Categories from "./categories";
 import NoteList from "./notelist";
 
@@ -56,6 +57,25 @@ export default class ChoicePanel extends Component {
     const note = this.state.catNotes.filter(c => c.key === key)[0];
     this.props.updateNoteText(note);
   }
+
+  newNote() {
+    const uuid = uuidv4();
+    const cat = this.state.currCategory;
+    const note = {
+      createdAt: (new Date()).toISOString(),
+      updatedAt: (new Date()).toISOString(),
+      type: "MARKDOWN_NOTE",
+      folder: cat.key,
+      title: 'Untitled',
+      content: '',
+      tags: [],
+      isStarred: false,
+      isTrashed: false,
+    };
+    const filename = path.join(this.props.boostdir, 'notes', `${uuid}.cson`);
+
+    fs.writeFileSync(filename, CSON.stringify(note, ' ', 2));
+    this.updateNoteList(cat.key);
   }
 
   render() {
@@ -78,6 +98,7 @@ export default class ChoicePanel extends Component {
           update={ this.boundUpdateNote }
         />
         <Button
+          onPress={this.newNote.bind(this)}
           style={{
             backgroundColor: 'black',
             border: '1px solid white',

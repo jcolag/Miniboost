@@ -5,9 +5,6 @@ import {
   View
 } from "proton-native";
 
-const fs = require('fs');
-const path = require('path');
-
 export default class Categories extends Component {
   constructor(props) {
     super(props);
