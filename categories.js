@@ -20,6 +20,7 @@ export default class Categories extends Component {
         }
         return 0;
       }),
+      config: props.config,
     };
   }
 
@@ -35,7 +36,7 @@ export default class Categories extends Component {
       }}>
         <Text
           style={{
-            color: 'white',
+            color: this.state.config.foregroundColor,
             fontSize: 24,
             fontWeight: 'bold',
             textAlign: 'left',
@@ -45,9 +46,9 @@ export default class Categories extends Component {
         </Text>
         <Picker
           style={{
-            backgroundColor: 'black',
-            border: '1px solid white',
-            color: 'white',
+            backgroundColor: this.state.config.backgroundColor,
+            border: '1px solid ' + this.state.config.foregroundColor,
+            color: this.state.config.foregroundColor,
             flex: 1,
             fontSize: 18,
             width: '100%',

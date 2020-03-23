@@ -10,6 +10,7 @@ export default class NoteList extends Component {
     super(props);
     this.state = {
       category: props.category,
+      config: props.config,
       notes: props.notes,
     };
   }
@@ -47,7 +48,7 @@ export default class NoteList extends Component {
       }}>
         <Text
           style={{
-            color: 'white',
+            color: this.state.config.foregroundColor,
             fontSize: 24,
             fontWeight: 'bold',
             textAlign: 'left',
@@ -57,9 +58,9 @@ export default class NoteList extends Component {
         </Text>
         <Picker
           style={{
-            backgroundColor: 'black',
-            border: '1px solid white',
-            color: 'white',
+            backgroundColor: this.state.config.backgroundColor,
+            border: '1px solid ' + this.state.config.foregroundColor,
+            color: this.state.config.foregroundColor,
             flex: 1,
             fontSize: 18,
             width: '100%',

@@ -24,6 +24,7 @@ export default class ChoicePanel extends Component {
       boostdir: props.boostdir,
       categories: config.folders,
       catNotes: [],
+      config: props.config,
       currCategory: {
         color: 'white',
         key: '',
@@ -90,20 +91,22 @@ export default class ChoicePanel extends Component {
       }}>
         <Categories
           categories={ this.state.categories }
+          config={ this.state.config }
           update={ this.boundUpdateNoteList }
         />
         <NoteList
           category={ this.state.currCategory }
+          config={ this.state.config }
           notes={ this.state.catNotes }
           update={ this.boundUpdateNote }
         />
         <Button
           onPress={this.newNote.bind(this)}
           style={{
-            backgroundColor: 'black',
-            border: '1px solid white',
+            backgroundColor: this.state.config.backgroundColor,
+            border: '1px solid ' + this.state.config.foregroundColor,
             fontWeight: 'bold',
-            color: 'white',
+            color: this.state.config.foregroundColor,
             fontSize: '18pt',
             width: '100%',
           }}

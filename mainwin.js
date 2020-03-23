@@ -15,8 +15,22 @@ const boostdir = path.join(homedir, 'Boostnote');
 
 export default class MainWindow extends Component {
   constructor(props) {
+    let config = {
+      backgroundColor: 'black',
+      foregroundColor: 'white',
+    };
+
     super(props);
+    try {
+      const configFile = path.join(homedir, '.config', 'Miniboost.json');
+      const configJson = fs.readFileSync(configFile, 'utf-8');
+
+      config = JSON.parse(configJson);
+    } catch {
+    }
+
     this.state = {
+      config: config,
       note: null,
       text: '',
       timer: null,
@@ -75,7 +89,7 @@ export default class MainWindow extends Component {
       <App>
         <Window
           style={{
-            backgroundColor: "black",
+            backgroundColor: this.state.config.backgroundColor,
             height: '75%',
             width: '75%',
           }}
@@ -90,6 +104,7 @@ export default class MainWindow extends Component {
           }}>
             <ChoicePanel
               boostdir={boostdir}
+              config={this.state.config}
               updateNoteText={this.state.updateNoteText}
             />
             <TextInput
@@ -97,9 +112,9 @@ export default class MainWindow extends Component {
               onChangeText={text => this.noteUpdated(text)}
               stretch={true}
               style={{
-                backgroundColor: 'black',
-                border: '1px solid white',
-                color: 'white',
+                backgroundColor: this.state.config.backgroundColor,
+                border: '1px solid ' + this.state.config.foregroundColor,
+                color: this.state.config.foregroundColor,
                 fontSize: '18pt',
                 height: '100%',
                 width: '85%',
