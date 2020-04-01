@@ -11,27 +11,29 @@ const CSON = require('cson');
 const fs = require('fs');
 const path = require('path');
 const homedir = require('os').homedir();
-const boostdir = path.join(homedir, 'Boostnote');
 
 export default class MainWindow extends Component {
   constructor(props) {
     let config = {
       backgroundColor: 'black',
+      boostdir: path.join(homedir, 'Boostnote'),
       foregroundColor: 'white',
+      interval: 250,
     };
 
     super(props);
     try {
       const configFile = path.join(homedir, '.config', 'Miniboost.json');
       const configJson = fs.readFileSync(configFile, 'utf-8');
+      const userConfig = JSON.parse(configJson);
 
-      config = JSON.parse(configJson);
+      Object.assign(config, userConfig);
     } catch {
     }
 
     this.state = {
       config: config,
-      interval: setInterval(this.checkLastFileTime, 250, this),
+      interval: setInterval(this.checkLastFileTime, config.interval, this),
       needReload: false,
       note: null,
       text: '',
@@ -46,7 +48,7 @@ export default class MainWindow extends Component {
     }
 
     const filename = path.join(
-      boostdir,
+      self.state.config.boostdir,
       'notes',
       self.state.note.key
     );
@@ -89,7 +91,7 @@ export default class MainWindow extends Component {
   }
 
   saveNoteFile(note, newText) {
-    const outfile = path.join(boostdir, 'notes', note.key);
+    const outfile = path.join(this.state.config.boostdir, 'notes', note.key);
 
     note.content = newText;
     note.updatedAt = (new Date()).toISOString();
@@ -101,7 +103,11 @@ export default class MainWindow extends Component {
     clearInterval(this.state.interval);
     this.state.note.stats.mtime = new Date();
     this.setState({
-      interval: setInterval(this.checkLastFileTime, 250, this),
+      interval: setInterval(
+        this.checkLastFileTime,
+        this.state.config.interval,
+        this
+      ),
       timer: null,
     });
   }
@@ -125,7 +131,7 @@ export default class MainWindow extends Component {
             width: '100%',
           }}>
             <ChoicePanel
-              boostdir={boostdir}
+              boostdir={this.state.config.boostdir}
               config={this.state.config}
               needReload={this.state.needReload}
               updateNoteText={this.state.updateNoteText}

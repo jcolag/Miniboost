@@ -11,12 +11,16 @@ I may improve on it later, but currently, **Miniboost** only allows the user to 
 
 The odds that this will be useful to anybody else seems low---especially since Proton Native's text editor doesn't seem to be able to handle word wrap---and this was designed around my usual workflow, but if anybody has any improvements, by all means, get involved!
 
-As a small concession to usability for people who aren't me, if you don't like the white-on-black color scheme (I don't, either, but it's readable at night without being glaring, and that's all I want), you can create a `~/.config/Miniboost.json` file that specifies a new color scheme.  It looks something like this.
+As a small concession to usability for people who aren't me, if you don't like the white-on-black color scheme (I don't, either, but it's readable at night without being glaring, and that's all I want), you can create a `~/.config/Miniboost.json` file that specifies a new color scheme.  You can also configure the location for your notes and the interval at which **Miniboost** will monitor the note files for external changes.
+
+The configuration file looks something like this.
 
 ```json
 {
   "backgroundColor": "black",
-  "foregroundColor": "white"
+  "boostdir": "/home/username/Boostnote",
+  "foregroundColor": "white",
+  "interval": 250
 }
 ```
 
