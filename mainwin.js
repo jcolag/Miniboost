@@ -31,11 +31,30 @@ export default class MainWindow extends Component {
 
     this.state = {
       config: config,
+      interval: setInterval(this.checkLastFileTime, 250, this),
+      needReload: false,
       note: null,
       text: '',
       timer: null,
       updateNoteText: this.updateNoteText.bind(this),
     };
+  }
+
+  checkLastFileTime(self) {
+    if (self.state.note === null || typeof self.state.note === 'undefined') {
+      return;
+    }
+
+    const filename = path.join(
+      boostdir,
+      'notes',
+      self.state.note.key
+    );
+    const stats = fs.statSync(filename);
+
+    self.setState({
+      needReload: stats.mtime > self.state.note.stats.mtime,
+    });
   }
 
   updateNoteText(newNote) {
@@ -79,7 +98,10 @@ export default class MainWindow extends Component {
 
     fs.writeFileSync(outfile, content);
     clearTimeout(this.state.timer);
+    clearInterval(this.state.interval);
+    this.state.note.stats.mtime = new Date();
     this.setState({
+      interval: setInterval(this.checkLastFileTime, 250, this),
       timer: null,
     });
   }
@@ -105,6 +127,7 @@ export default class MainWindow extends Component {
             <ChoicePanel
               boostdir={boostdir}
               config={this.state.config}
+              needReload={this.state.needReload}
               updateNoteText={this.state.updateNoteText}
             />
             <TextInput

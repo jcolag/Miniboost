@@ -30,6 +30,7 @@ export default class ChoicePanel extends Component {
         key: '',
         name: 'Unknown',
       },
+      key: null,
     };
   }
 
@@ -40,9 +41,11 @@ export default class ChoicePanel extends Component {
     const inCat = [];
 
     allFiles.forEach((filename) => {
-      const file = fs.readFileSync(path.join(notePath, filename));
+      const filepath = path.join(notePath, filename);
+      const file = fs.readFileSync(filepath);
       const note = CSON.parse(file);
 
+      note.stats = fs.statSync(filepath);
       if (note.folder === key) {
         note.key = filename;
         inCat.push(note);
@@ -56,7 +59,22 @@ export default class ChoicePanel extends Component {
 
   updateNote(key) {
     const note = this.state.catNotes.filter(c => c.key === key)[0];
+    this.setState({
+      key: key,
+    });
     this.props.updateNoteText(note);
+  }
+
+  reloadNote() {
+    const oldNote = this.state.catNotes.filter(c => c.key === this.state.key)[0];
+    const filename = path.join(this.state.boostdir, 'notes', this.state.key);
+    const file = fs.readFileSync(filename);
+    const stats = fs.statSync(filename);
+    const newNote = CSON.parse(file);
+
+    oldNote.content = newNote.content;
+    oldNote.stats = stats;
+    this.updateNote(this.state.key);
   }
 
   newNote() {
@@ -87,7 +105,7 @@ export default class ChoicePanel extends Component {
         flexDirection: 'column',
         height: '100%',
         justifyContent: 'flex-start',
-        width: '20%',
+        width: '250px',
       }}>
         <Categories
           categories={ this.state.categories }
@@ -111,6 +129,19 @@ export default class ChoicePanel extends Component {
             width: '100%',
           }}
           title="New Note"
+        />
+        <Button
+          onPress={this.reloadNote.bind(this)}
+          style={{
+            backgroundColor: this.state.config.backgroundColor,
+            border: '1px solid ' + this.state.config.foregroundColor,
+            display: this.props.needReload ? 'visible' : 'none',
+            fontWeight: 'bold',
+            color: this.state.config.foregroundColor,
+            fontSize: '18pt',
+            width: '100%',
+          }}
+          title="Reload File"
         />
       </View>
     );
