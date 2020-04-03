@@ -125,7 +125,7 @@ export default class ChoicePanel extends Component {
             border: '1px solid ' + this.state.config.foregroundColor,
             fontWeight: 'bold',
             color: this.state.config.foregroundColor,
-            fontSize: '18pt',
+            fontSize: `${this.state.config.fontSize * 1.25}pt`,
             width: '100%',
           }}
           title="New Note"
@@ -138,7 +138,7 @@ export default class ChoicePanel extends Component {
             display: this.props.needReload ? 'visible' : 'none',
             fontWeight: 'bold',
             color: this.state.config.foregroundColor,
-            fontSize: '18pt',
+            fontSize: `${this.state.config.fontSize * 1.25}pt`,
             width: '100%',
           }}
           title="Reload File"

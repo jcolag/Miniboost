@@ -49,7 +49,7 @@ export default class NoteList extends Component {
         <Text
           style={{
             color: this.state.config.foregroundColor,
-            fontSize: 24,
+            fontSize: `${this.state.config.fontSize * 1.25}pt`,
             fontWeight: 'bold',
             textAlign: 'left',
           }}
@@ -62,7 +62,7 @@ export default class NoteList extends Component {
             border: '1px solid ' + this.state.config.foregroundColor,
             color: this.state.config.foregroundColor,
             flex: 1,
-            fontSize: 18,
+            fontSize: `${this.state.config.fontSize}pt`,
             width: '100%',
           }}
           onValueChange={val => this.props.update(val)}

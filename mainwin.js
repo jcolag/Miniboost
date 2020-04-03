@@ -17,6 +17,7 @@ export default class MainWindow extends Component {
     let config = {
       backgroundColor: 'black',
       boostdir: path.join(homedir, 'Boostnote'),
+      fontSize: 18,
       foregroundColor: 'white',
       interval: 250,
     };
@@ -144,7 +145,7 @@ export default class MainWindow extends Component {
                 backgroundColor: this.state.config.backgroundColor,
                 border: '1px solid ' + this.state.config.foregroundColor,
                 color: this.state.config.foregroundColor,
-                fontSize: '18pt',
+                fontSize: `${this.state.config.fontSize}pt`,
                 height: '100%',
                 width: '85%',
               }}
