@@ -8,9 +8,18 @@ import {
 import ChoicePanel from './choicepanel';
 
 const CSON = require('cson');
+const MarkdownIt = require('markdown-it');
 const fs = require('fs');
+const opn = require('opn');
 const path = require('path');
+const tmp = require('tmp');
 const homedir = require('os').homedir();
+const md = new MarkdownIt({
+  breaks: true,
+  html: true,
+  linkify: true,
+  typographer: true,
+});
 
 export default class MainWindow extends Component {
   constructor(props) {
@@ -32,6 +41,7 @@ export default class MainWindow extends Component {
     } catch {
     }
 
+    this.boundDisplayNote = this.displayNote.bind(this);
     this.state = {
       config: config,
       interval: setInterval(this.checkLastFileTime, config.interval, this),
@@ -91,6 +101,17 @@ export default class MainWindow extends Component {
     });
   }
 
+  displayNote() {
+    const html = md.render(this.state.text);
+    const file = tmp.fileSync({
+      mode: parseInt('0600', 8),
+      prefix: 'Miniboost-',
+      postfix: '.html',
+    });
+    fs.writeFileSync(file.name, html);
+    opn(file.name);
+  }
+
   saveNoteFile(note, newText) {
     const outfile = path.join(this.state.config.boostdir, 'notes', note.key);
 
@@ -134,6 +155,7 @@ export default class MainWindow extends Component {
             <ChoicePanel
               boostdir={this.state.config.boostdir}
               config={this.state.config}
+              displayNote={this.boundDisplayNote}
               needReload={this.state.needReload}
               updateNoteText={this.state.updateNoteText}
             />

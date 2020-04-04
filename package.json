@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "cson": "^7.0.0",
+    "markdown-it": "^10.0.0",
+    "opn": "^6.0.0",
     "proton-native": "^2.0.4",
+    "tmp": "^0.1.0",
     "uuid": "^7.0.3"
   },
   "devDependencies": {

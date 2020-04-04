@@ -119,6 +119,18 @@ export default class ChoicePanel extends Component {
           update={ this.boundUpdateNote }
         />
         <Button
+          onPress={this.props.displayNote}
+          style={{
+            backgroundColor: this.state.config.backgroundColor,
+            border: '1px solid ' + this.state.config.foregroundColor,
+            fontWeight: 'bold',
+            color: this.state.config.foregroundColor,
+            fontSize: `${this.state.config.fontSize * 1.25}pt`,
+            width: '100%',
+          }}
+          title="View in Browser"
+        />
+        <Button
           onPress={this.newNote.bind(this)}
           style={{
             backgroundColor: this.state.config.backgroundColor,
