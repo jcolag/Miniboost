@@ -11,18 +11,19 @@ I may improve on it later, but currently, **Miniboost** only allows the user to 
 
 The odds that this will be useful to anybody else seems low---especially since Proton Native's text editor doesn't seem to be able to handle word wrap---and this was designed around my usual workflow, but if anybody has any improvements, by all means, get involved!
 
-As a small concession to usability for people who aren't me, if you don't like the white-on-black color scheme (I don't, either, but it's readable at night without being glaring, and that's all I want), you can create a `~/.config/Miniboost.json` file that specifies a new color scheme.  You can also configure the location for your notes and the interval at which **Miniboost** will monitor the note files for external changes.
+As a small concession to usability for people who aren't me, if you don't like the white-on-black color scheme (I don't, either, but it's readable at night without being glaring, and that's all I want) or a few other features, you can create a `~/.config/Miniboost.json` file that specifies a new color scheme.  You can also configure the location for your notes and the interval at which **Miniboost** will monitor the note files for external changes.
 
-The configuration file looks something like this.
+A full configuration file looks something like this, but you don't need to include anything you don't want to change.
 
 ```json
 {
-  "backgroundColor": "black",
+  "backgroundColor": "orange",
   "boostdir": "/home/username/Boostnote",
-  "foregroundColor": "white",
-  "interval": 250
+  "exportStyle": "table { border-collapse: collapse; } td,th { border: 1px solid darkgray; }"
+  "fontSize": 12,
+  "foregroundColor": "blue",
+  "interval": 100
 }
 ```
 
-I may eventually add new options (font size might be useful) and wouldn't be averse to a pull request with anything interesting.
-
+`boostdir` is the location where you can find your **Boostnote** notes, in case they're not in the default location.  `exportStyle` is CSS to format notes previewed in the browser.  `interval` is how often **Miniboost** will check to see if the current note has been modified by another program.  Note that the text is shown at different sizes, but those sizes are based on the size of the editor's text so that only one size needs to be specified.

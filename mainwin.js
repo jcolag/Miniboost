@@ -26,6 +26,7 @@ export default class MainWindow extends Component {
     let config = {
       backgroundColor: 'black',
       boostdir: path.join(homedir, 'Boostnote'),
+      exportStyle: '',
       fontSize: 18,
       foregroundColor: 'white',
       interval: 250,
@@ -108,7 +109,8 @@ export default class MainWindow extends Component {
       prefix: 'Miniboost-',
       postfix: '.html',
     });
-    fs.writeFileSync(file.name, html);
+    const result = `<html><head><title>${this.state.note.title}</title><style>${this.state.config.exportStyle}</style></head><body>${html}</body></html>`
+    fs.writeFileSync(file.name, result);
     opn(file.name);
   }
 
