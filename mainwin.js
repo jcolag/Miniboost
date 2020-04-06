@@ -143,7 +143,7 @@ export default class MainWindow extends Component {
           style={{
             backgroundColor: this.state.config.backgroundColor,
             height: '75%',
-            width: '75%',
+            width: this.state.note === null ? '10%' : '75%',
           }}
         >
           <View style={{
@@ -169,6 +169,7 @@ export default class MainWindow extends Component {
                 backgroundColor: this.state.config.backgroundColor,
                 border: '1px solid ' + this.state.config.foregroundColor,
                 color: this.state.config.foregroundColor,
+                display: this.state.note === null ? 'none' : 'visible',
                 fontSize: `${this.state.config.fontSize}pt`,
                 height: '100%',
                 width: '85%',

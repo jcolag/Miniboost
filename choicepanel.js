@@ -54,6 +54,7 @@ export default class ChoicePanel extends Component {
     this.setState({
       catNotes: inCat,
       currCategory: cat,
+      key: null,
     });
   }
 
@@ -117,12 +118,14 @@ export default class ChoicePanel extends Component {
           config={ this.state.config }
           notes={ this.state.catNotes }
           update={ this.boundUpdateNote }
+          visible={ this.state.currCategory.key !== '' }
         />
         <Button
           onPress={this.props.displayNote}
           style={{
             backgroundColor: this.state.config.backgroundColor,
             border: '1px solid ' + this.state.config.foregroundColor,
+            display: this.state.key === null ? 'none' : 'visible',
             fontWeight: 'bold',
             color: this.state.config.foregroundColor,
             fontSize: `${this.state.config.fontSize * 1.25}pt`,
@@ -135,6 +138,7 @@ export default class ChoicePanel extends Component {
           style={{
             backgroundColor: this.state.config.backgroundColor,
             border: '1px solid ' + this.state.config.foregroundColor,
+            display: this.state.currCategory.key === '' ? 'none' : 'visible',
             fontWeight: 'bold',
             color: this.state.config.foregroundColor,
             fontSize: `${this.state.config.fontSize * 1.25}pt`,

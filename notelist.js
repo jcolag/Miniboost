@@ -40,6 +40,7 @@ export default class NoteList extends Component {
     return (
       <View style={{
         alignItems: 'flex-start',
+        display: this.props.visible ? 'visible' : 'none',
         flex: 1,
         flexDirection: 'column',
         height: '40%',
