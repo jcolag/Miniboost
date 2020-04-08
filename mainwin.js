@@ -108,13 +108,15 @@ export default class MainWindow extends Component {
   }
 
   displayNote() {
-    const html = md.render(this.state.text);
+    const html = md.render(this.state.note.content);
     const file = tmp.fileSync({
       mode: parseInt('0600', 8),
       prefix: 'Miniboost-',
       postfix: '.html',
     });
-    const result = `<html><head><title>${this.state.note.title}</title><style>${this.state.config.exportStyle}</style></head><body>${html}</body></html>`
+    const result = `<html><head><title>${this.state.note.title}</title>`
+      + `<style>${this.state.config.exportStyle}</style></head>`
+      + `<body>${html}</body></html>`
     fs.writeFileSync(file.name, result);
     opn(file.name);
   }
