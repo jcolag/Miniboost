@@ -55,6 +55,11 @@ export default class MainWindow extends Component {
   }
 
   checkLastFileTime(self) {
+    if (self.state.config.interval < 0) {
+      clearInterval(self.state.interval);
+      return;
+    }
+
     if (self.state.note === null || typeof self.state.note === 'undefined') {
       return;
     }
