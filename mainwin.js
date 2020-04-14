@@ -84,7 +84,10 @@ export default class MainWindow extends Component {
   }
 
   noteUpdated(text) {
-    if (this.state.note === null || this.state.note.content === text) {
+    if (this.state.note === null
+      || typeof this.state.note === 'undefined'
+      || this.state.note.content === text
+    ) {
       return;
     }
 
@@ -114,9 +117,14 @@ export default class MainWindow extends Component {
       prefix: 'Miniboost-',
       postfix: '.html',
     });
-    const result = `<html><head><title>${this.state.note.title}</title>`
+    let result = `<html><head><title>${this.state.note.title}</title>`
       + `<style>${this.state.config.exportStyle}</style></head>`
-      + `<body>${html}</body></html>`
+      + `<body>${html}</body></html>`;
+
+    result = result.replace(
+      /\/:storage\//g,
+      `file:///${this.state.config.boostdir}/images/`
+    );
     fs.writeFileSync(file.name, result);
     opn(file.name);
   }
