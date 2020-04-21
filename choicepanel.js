@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {
   Button,
   Text,
+  TextInput,
   View,
 } from "proton-native";
 import { v4 as uuidv4 } from "uuid";
@@ -20,6 +21,8 @@ export default class ChoicePanel extends Component {
     super(props);
     this.boundUpdateNoteList = this.updateNoteList.bind(this);
     this.boundUpdateNote = this.updateNote.bind(this);
+    this.boundAddCategory = this.addCategory.bind(this);
+    this.boundCategoryName = this.changeCategoryName.bind(this);
     this.state = {
       boostdir: props.boostdir,
       categories: config.folders,
@@ -30,7 +33,10 @@ export default class ChoicePanel extends Component {
         key: '',
         name: 'Unknown',
       },
+      errorCategory: false,
       key: null,
+      nameCategory: '',
+      newCategory: false,
     };
   }
 
@@ -98,6 +104,52 @@ export default class ChoicePanel extends Component {
     this.updateNoteList(cat.key);
   }
 
+  changeCategoryName(name) {
+    const cats = this.state.categories.map(c => c.name);
+    let error = false;
+
+    if (cats.indexOf(name) >= 0) {
+      error = true;
+    }
+
+    this.setState({
+      errorCategory: error,
+      nameCategory: name,
+    });
+  }
+
+  addCategory() {
+    const adding = this.state.newCategory;
+
+    if (adding) {
+      const boostname = path.join(this.props.boostdir, 'boostnote.json');
+      const boost = JSON.parse(fs.readFileSync(boostname, 'utf-8'));
+      const uuid = uuidv4();
+      const newCategory = {
+        key: uuid.replace(/-/g, '').slice(0,20),
+        color: this.state.config.foregroundColor,
+        name: this.state.nameCategory,
+      };
+      const categories = this.state.categories;
+
+      this.setState({
+        categories: null,
+      });
+      categories.push(newCategory);
+      boost.folders.push(newCategory);
+      fs.writeFileSync(boostname, JSON.stringify(boost, ' ', 2));
+      this.setState({
+        categories: categories,
+      });
+    }
+
+    this.setState({
+      errorCategory: false,
+      nameCategory: '',
+      newCategory: !adding,
+    });
+  }
+
   render() {
     return (
       <View style={{
@@ -113,6 +165,46 @@ export default class ChoicePanel extends Component {
           config={ this.state.config }
           update={ this.boundUpdateNoteList }
         />
+        <View style={{
+          alignItems: 'flex-start',
+          flex: 1,
+          flexDirection: 'row',
+          height: '45px',
+          justifyContent: 'flex-start',
+          maxHeight: '40px',
+          width: '100%',
+        }}>
+          <Button
+            onPress={this.boundAddCategory}
+            style={{
+              backgroundColor: this.state.config.backgroundColor,
+              border: '1px solid ' + this.state.config.foregroundColor,
+              display: 'visible',
+              fontWeight: 'bold',
+              color: this.state.config.foregroundColor,
+              fontSize: `${this.state.config.fontSize * 1.25}pt`,
+              height: '40px',
+              width: this.state.newCategory ? '40px' : '100%',
+            }}
+            title={ this.state.newCategory ? '+' : 'New Category' }
+          />
+          <TextInput
+            onChangeText={text => this.boundCategoryName(text)}
+            style={{
+              backgroundColor: this.state.errorCategory
+                ? 'darkred'
+                : this.state.config.backgroundColor,
+              border: '1px solid ' + this.state.config.foregroundColor,
+              color: this.state.errorCategory
+                ? 'white'
+                : this.state.config.foregroundColor,
+              display: this.state.newCategory ? 'visible' : 'none',
+              fontSize: `${this.state.config.fontSize}pt`,
+              height: '40px',
+              width: '250px',
+            }}
+          />
+        </View>
         <NoteList
           category={ this.state.currCategory }
           config={ this.state.config }
