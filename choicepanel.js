@@ -174,20 +174,6 @@ export default class ChoicePanel extends Component {
           maxHeight: '40px',
           width: '100%',
         }}>
-          <Button
-            onPress={this.boundAddCategory}
-            style={{
-              backgroundColor: this.state.config.backgroundColor,
-              border: '1px solid ' + this.state.config.foregroundColor,
-              display: 'visible',
-              fontWeight: 'bold',
-              color: this.state.config.foregroundColor,
-              fontSize: `${this.state.config.fontSize * 1.25}pt`,
-              height: '40px',
-              width: this.state.newCategory ? '40px' : '100%',
-            }}
-            title={ this.state.newCategory ? '+' : 'New Category' }
-          />
           <TextInput
             onChangeText={text => this.boundCategoryName(text)}
             style={{
@@ -203,6 +189,20 @@ export default class ChoicePanel extends Component {
               height: '40px',
               width: '250px',
             }}
+          />
+          <Button
+            onPress={this.boundAddCategory}
+            style={{
+              backgroundColor: this.state.config.backgroundColor,
+              border: '1px solid ' + this.state.config.foregroundColor,
+              display: 'visible',
+              fontWeight: 'bold',
+              color: this.state.config.foregroundColor,
+              fontSize: `${this.state.config.fontSize}pt`,
+              height: '40px',
+              width: this.state.newCategory ? '40px' : '100%',
+            }}
+            title={ this.state.newCategory ? '+' : 'New Category' }
           />
         </View>
         <NoteList
