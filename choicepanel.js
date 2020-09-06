@@ -151,6 +151,66 @@ export default class ChoicePanel extends Component {
   }
 
   render() {
+    const categoryNameField = this.state.newCategory ?
+      <TextInput
+        onChangeText={text => this.boundCategoryName(text)}
+        style={{
+          backgroundColor: this.state.errorCategory
+            ? 'darkred'
+            : this.state.config.backgroundColor,
+          border: '1px solid ' + this.state.config.foregroundColor,
+          color: this.state.errorCategory
+            ? 'white'
+            : this.state.config.foregroundColor,
+          fontSize: `${this.state.config.fontSize}pt`,
+          height: '40px',
+          width: '250px',
+        }}
+      /> :
+      null;
+    const newNoteButton = this.state.currCategory.key === '' ?
+      null :
+      <Button
+        onPress={this.newNote.bind(this)}
+        style={{
+          backgroundColor: this.state.config.backgroundColor,
+          border: '1px solid ' + this.state.config.foregroundColor,
+          fontWeight: 'bold',
+          color: this.state.config.foregroundColor,
+          fontSize: `${this.state.config.fontSize * 1.25}pt`,
+          width: '100%',
+        }}
+        title="New Note"
+      />;
+    const reloadButton = this.props.needReload ?
+      <Button
+        onPress={this.reloadNote.bind(this)}
+        style={{
+          backgroundColor: this.state.config.backgroundColor,
+          border: '1px solid ' + this.state.config.foregroundColor,
+          fontWeight: 'bold',
+          color: this.state.config.foregroundColor,
+          fontSize: `${this.state.config.fontSize * 1.25}pt`,
+          width: '100%',
+        }}
+        title="Reload File"
+      /> :
+      null;
+    const viewButton = this.state.key === null ?
+      null :
+      <Button
+        onPress={this.props.displayNote}
+        style={{
+          backgroundColor: this.state.config.backgroundColor,
+          border: '1px solid ' + this.state.config.foregroundColor,
+          fontWeight: 'bold',
+          color: this.state.config.foregroundColor,
+          fontSize: `${this.state.config.fontSize * 1.25}pt`,
+          width: '100%',
+        }}
+        title="View in Browser"
+      />;
+
     return (
       <View style={{
         alignItems: 'flex-start',
@@ -174,22 +234,7 @@ export default class ChoicePanel extends Component {
           maxHeight: '40px',
           width: '100%',
         }}>
-          <TextInput
-            onChangeText={text => this.boundCategoryName(text)}
-            style={{
-              backgroundColor: this.state.errorCategory
-                ? 'darkred'
-                : this.state.config.backgroundColor,
-              border: '1px solid ' + this.state.config.foregroundColor,
-              color: this.state.errorCategory
-                ? 'white'
-                : this.state.config.foregroundColor,
-              display: this.state.newCategory ? 'visible' : 'none',
-              fontSize: `${this.state.config.fontSize}pt`,
-              height: '40px',
-              width: '250px',
-            }}
-          />
+          {categoryNameField}
           <Button
             onPress={this.boundAddCategory}
             style={{
@@ -212,45 +257,9 @@ export default class ChoicePanel extends Component {
           update={ this.boundUpdateNote }
           visible={ this.state.currCategory.key !== '' }
         />
-        <Button
-          onPress={this.props.displayNote}
-          style={{
-            backgroundColor: this.state.config.backgroundColor,
-            border: '1px solid ' + this.state.config.foregroundColor,
-            display: this.state.key === null ? 'none' : 'visible',
-            fontWeight: 'bold',
-            color: this.state.config.foregroundColor,
-            fontSize: `${this.state.config.fontSize * 1.25}pt`,
-            width: '100%',
-          }}
-          title="View in Browser"
-        />
-        <Button
-          onPress={this.newNote.bind(this)}
-          style={{
-            backgroundColor: this.state.config.backgroundColor,
-            border: '1px solid ' + this.state.config.foregroundColor,
-            display: this.state.currCategory.key === '' ? 'none' : 'visible',
-            fontWeight: 'bold',
-            color: this.state.config.foregroundColor,
-            fontSize: `${this.state.config.fontSize * 1.25}pt`,
-            width: '100%',
-          }}
-          title="New Note"
-        />
-        <Button
-          onPress={this.reloadNote.bind(this)}
-          style={{
-            backgroundColor: this.state.config.backgroundColor,
-            border: '1px solid ' + this.state.config.foregroundColor,
-            display: this.props.needReload ? 'visible' : 'none',
-            fontWeight: 'bold',
-            color: this.state.config.foregroundColor,
-            fontSize: `${this.state.config.fontSize * 1.25}pt`,
-            width: '100%',
-          }}
-          title="Reload File"
-        />
+        {viewButton}
+        {newNoteButton}
+        {reloadButton}
       </View>
     );
   }
