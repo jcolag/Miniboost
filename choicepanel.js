@@ -177,10 +177,10 @@ export default class ChoicePanel extends Component {
           border: '1px solid ' + this.state.config.foregroundColor,
           fontWeight: 'bold',
           color: this.state.config.foregroundColor,
-          fontSize: `${this.state.config.fontSize * 1.25}pt`,
+          fontSize: `${this.state.config.fontSize * 1.2}pt`,
           width: '100%',
         }}
-        title="New Note"
+        title="New Note ➕"
       />;
     const reloadButton = this.props.needReload ?
       <Button
@@ -190,10 +190,10 @@ export default class ChoicePanel extends Component {
           border: '1px solid ' + this.state.config.foregroundColor,
           fontWeight: 'bold',
           color: this.state.config.foregroundColor,
-          fontSize: `${this.state.config.fontSize * 1.25}pt`,
+          fontSize: `${this.state.config.fontSize * 1.2}pt`,
           width: '100%',
         }}
-        title="Reload File"
+        title="Reload File 🔃"
       /> :
       null;
     const viewButton = this.state.key === null ?
@@ -205,10 +205,10 @@ export default class ChoicePanel extends Component {
           border: '1px solid ' + this.state.config.foregroundColor,
           fontWeight: 'bold',
           color: this.state.config.foregroundColor,
-          fontSize: `${this.state.config.fontSize * 1.25}pt`,
+          fontSize: `${this.state.config.fontSize * 1.2}pt`,
           width: '100%',
         }}
-        title="View in Browser"
+        title="View in Browser 🌐"
       />;
 
     return (
@@ -247,7 +247,7 @@ export default class ChoicePanel extends Component {
               height: '40px',
               width: this.state.newCategory ? '40px' : '100%',
             }}
-            title={ this.state.newCategory ? '+' : 'New Category' }
+            title={ this.state.newCategory ? '➕' : 'New Category ➕' }
           />
         </View>
         <NoteList
