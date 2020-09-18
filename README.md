@@ -1,5 +1,6 @@
 # Miniboost
-A lightweight note-editor compatible with Boost Note
+
+A lightweight note-editor (mostly) compatible with Boost Note
 
 I *really* like [Boost Note](https://boostnote.io/) and have been happily using it for years.  However, my laptop is getting a little bit long in the tooth and yet another Electron app is a bit much to run at all times.  And if note-taking software isn't available at all times, it's unfortunately not very useful.
 
@@ -7,7 +8,7 @@ Thankfully, Boost Note is open source and its file formats are straightforward. 
 
 This is *not*, however, a replacement for Boost Note; think of it more as a supplement for it, a minimal tool that can handle the easy work if you already use Boost Note, but not the bigger tasks.
 
-I may improve on it later, but currently, **Miniboost** only allows the user to select a category, select a note, and read/edit the markdown; alternatively, after a category has been selected, it's possible to create a new note.  For the latter case, I have *tried* to make sure the titles and timestamps are set correctly, but all of the other features and conveniences that Boost Note provides are unavailable here.
+I may improve on it later, but currently, **Miniboost** only allows the user to select a category, select a note, and read/edit the markdown; alternatively, after a category has been selected, it's possible to create a new note.  New categories are also possible.  For new notes, I have *tried* to make sure the titles and timestamps are set correctly, but most of the other features and conveniences that Boost Note provides are unavailable here.  For example, all notes are Markdown notes; I don't use the code notes, so have no idea what they'd look like.
 
 The odds that this will be useful to anybody else seems low---especially since Proton Native's text editor doesn't seem to be able to handle word wrap---and this was designed around my usual workflow, but if anybody has any improvements, by all means, get involved filing issues and pull requests!
 
