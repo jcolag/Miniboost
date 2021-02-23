@@ -111,7 +111,16 @@ export default class MainWindow extends Component {
   }
 
   displayNote() {
-    const html = md.render(this.state.note.content);
+    const html = md
+      .render(this.state.note.content)
+      .replace(
+        /\s*<li>\s*\[\s*\] /g,
+        '\n<li><input type="checkbox"></input> '
+      )
+      .replace(
+        /\s*<li>\s*\[[^\s]*\] /g,
+        '\n<li><input type="checkbox" checked="true"></input> '
+        );
     const file = tmp.fileSync({
       mode: parseInt('0600', 8),
       prefix: 'Miniboost-',
