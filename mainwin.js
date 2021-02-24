@@ -114,12 +114,12 @@ export default class MainWindow extends Component {
     const html = md
       .render(this.state.note.content)
       .replace(
-        /\s*<li>\s*\[\s*\] /g,
-        '\n<li><input type="checkbox"></input> '
+        /\n\s*<li>\s*\[\s*\] /g,
+        '\n<li class="unchecked"> '
       )
       .replace(
-        /\s*<li>\s*\[[^\s]*\] /g,
-        '\n<li><input type="checkbox" checked="true"></input> '
+        /\n\s*<li>\s*\[[^\s]*\] /g,
+        '\n<li class="checked"> '
         );
     const file = tmp.fileSync({
       mode: parseInt('0600', 8),
@@ -127,7 +127,12 @@ export default class MainWindow extends Component {
       postfix: '.html',
     });
     let result = `<html><head><title>${this.state.note.title}</title>`
-      + `<style>${this.state.config.exportStyle}</style></head>`
+      + '<style>'
+      + ' ul { list-style: none; } '
+      + ' ul .checked:before { content: "✅ "; }'
+      + ' ul .unchecked:before { content: "🔳 "; }'
+      + `${this.state.config.exportStyle}`
+      + '</style></head>'
       + `<body>${html}</body></html>`;
 
     result = result.replace(
