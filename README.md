@@ -28,3 +28,6 @@ A full configuration file looks something like this, but you don't need to inclu
 ```
 
 `boostdir` is the location where you can find your **Boostnote** notes, in case they're not in the default location.  `exportStyle` is CSS to format notes previewed in the browser.  `interval` is how often **Miniboost** will check to see if the current note has been modified by another program; a negative number means that it never checks.  Note that the text is shown at different sizes, but those sizes are based on the size of the editor's text so that only one size needs to be specified.
+
+Regarding `exportStyle`, you can override the appearance of checkboxes, too, if you don't like the default emoji.  Just override `ul .checked:before` and `ul .unchecked:before` with whatever list bullet styles that you happen to prefer.
+
