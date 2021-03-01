@@ -128,9 +128,9 @@ export default class MainWindow extends Component {
     });
     let result = `<html><head><title>${this.state.note.title}</title>`
       + '<style>'
-      + ' ul { list-style: none; } '
-      + ' ul .checked:before { content: "✅ "; }'
-      + ' ul .unchecked:before { content: "🔳 "; }'
+      + ' ul { } '
+      + ' ul .checked:before { list-style: none; content: "✅ "; }'
+      + ' ul .unchecked:before { list-style: none; content: "🔳 "; }'
       + `${this.state.config.exportStyle}`
       + '</style></head>'
       + `<body>${html}</body></html>`;
