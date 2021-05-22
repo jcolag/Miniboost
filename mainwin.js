@@ -44,12 +44,17 @@ export default class MainWindow extends Component {
 
     this.boundDisplayNote = this.displayNote.bind(this);
     this.state = {
+      autoPreview: false,
+      autoTimer: null,
       config: config,
       interval: setInterval(this.checkLastFileTime, config.interval, this),
+      key: null,
       needReload: false,
       note: null,
       text: '',
+      tempFiles: {},
       timer: null,
+      toggleAutoPreview: this.toggleAutoPreview.bind(this),
       updateNoteText: this.updateNoteText.bind(this),
     };
   }
@@ -76,9 +81,20 @@ export default class MainWindow extends Component {
     });
   }
 
-  updateNoteText(newNote) {
+  updateNoteText(newNote, key) {
+    const tempFiles = this.state.tempFiles;
+    if (this.state.autoTimer !== null) {
+      clearInterval(this.state.autoTimer);
+    }
+    if (!Object.prototype.hasOwnProperty.call(tempFiles, key)) {
+      tempFiles[key] = tmp.tmpNameSync();
+    }
     this.setState({
+      autoPreview: false,
+      autoTimer: null,
+      key: key,
       note: newNote,
+      tempFiles: tempFiles,
       text: newNote.content,
     });
   }
@@ -110,7 +126,8 @@ export default class MainWindow extends Component {
     });
   }
 
-  displayNote() {
+  displayNote(inBrowser = true) {
+    const filename = this.state.tempFiles[this.state.key];
     const html = md
       .render(this.state.note.content)
       .replace(
@@ -121,12 +138,8 @@ export default class MainWindow extends Component {
         /\n\s*<li>\s*\[[^\s]*\] /g,
         '\n<li class="checked"> '
         );
-    const file = tmp.fileSync({
-      mode: parseInt('0600', 8),
-      prefix: 'Miniboost-',
-      postfix: '.html',
-    });
     let result = `<html><head><title>${this.state.note.title}</title>`
+      + '<meta http-equiv="refresh" content="5">'
       + '<style>'
       + ' ul { } '
       + ' ul .checked:before { list-style: none; content: "✅ "; }'
@@ -139,8 +152,28 @@ export default class MainWindow extends Component {
       /\/:storage\//g,
       `file:///${this.state.config.boostdir}/images/`
     );
-    fs.writeFileSync(file.name, result);
-    opn(file.name);
+    fs.writeFileSync(filename, result);
+    if (inBrowser) {
+      opn(filename);
+    }
+  }
+
+  toggleAutoPreview() {
+    const auto = this.state.autoPreview;
+    let timer = null;
+
+    if (auto) {
+      clearInterval(this.state.autoTimer);
+    } else {
+      timer = setInterval(function() {
+        this.displayNote(false);
+      }.bind(this), 500);
+    }
+
+    this.setState({
+      autoPreview: !auto,
+      autoTimer: timer,
+    });
   }
 
   saveNoteFile(note, newText) {
@@ -184,10 +217,12 @@ export default class MainWindow extends Component {
             width: '100%',
           }}>
             <ChoicePanel
+              autoPreview={this.state.autoPreview}
               boostdir={this.state.config.boostdir}
               config={this.state.config}
               displayNote={this.boundDisplayNote}
               needReload={this.state.needReload}
+              toggleAutoPreview={this.state.toggleAutoPreview}
               updateNoteText={this.state.updateNoteText}
             />
             <TextInput

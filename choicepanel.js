@@ -24,6 +24,7 @@ export default class ChoicePanel extends Component {
     this.boundAddCategory = this.addCategory.bind(this);
     this.boundCategoryName = this.changeCategoryName.bind(this);
     this.state = {
+      autopreview: false,
       boostdir: props.boostdir,
       categories: config.folders,
       catNotes: [],
@@ -69,7 +70,7 @@ export default class ChoicePanel extends Component {
     this.setState({
       key: key,
     });
-    this.props.updateNoteText(note);
+    this.props.updateNoteText(note, key);
   }
 
   reloadNote() {
@@ -196,6 +197,7 @@ export default class ChoicePanel extends Component {
         title="Reload File 🔃"
       /> :
       null;
+    const auto = `Auto-Preview ${this.props.autoPreview ? "✅" : "❌"}`;
     const viewButton = this.state.key === null ?
       null :
       <Button
@@ -209,6 +211,20 @@ export default class ChoicePanel extends Component {
           width: '100%',
         }}
         title="View in Browser 🌐"
+      />;
+    const autoButton = this.state.key === null ?
+      null :
+      <Button
+        onPress={this.props.toggleAutoPreview}
+        style={{
+          backgroundColor: this.state.config.backgroundColor,
+          border: '1px solid ' + this.state.config.foregroundColor,
+          fontWeight: 'bold',
+          color: this.state.config.foregroundColor,
+          fontSize: `${this.state.config.fontSize * 1.2}pt`,
+          width: '100%',
+        }}
+        title={auto}
       />;
 
     return (
@@ -258,6 +274,7 @@ export default class ChoicePanel extends Component {
           visible={ this.state.currCategory.key !== '' }
         />
         {viewButton}
+        {autoButton}
         {newNoteButton}
         {reloadButton}
       </View>
