@@ -24,6 +24,7 @@ const md = new MarkdownIt({
 export default class MainWindow extends Component {
   constructor(props) {
     let config = {
+      autoRefresh: false,
       backgroundColor: 'black',
       boostdir: path.join(homedir, 'Boostnote'),
       exportStyle: '',
@@ -138,9 +139,11 @@ export default class MainWindow extends Component {
         /\n\s*<li>\s*\[[^\s]*\] /g,
         '\n<li class="checked"> '
         );
-    let result = `<html><head><title>${this.state.note.title}</title>`
-      + '<meta http-equiv="refresh" content="5">'
-      + '<style>'
+    let result = `<html><head><title>${this.state.note.title}</title>`;
+    if (this.state.config.autoRefresh === true) {
+      result += '<meta http-equiv="refresh" content="5">';
+    }
+    result += '<style>'
       + ' ul { } '
       + ' ul .checked:before { list-style: none; content: "✅ "; }'
       + ' ul .unchecked:before { list-style: none; content: "🔳 "; }'
