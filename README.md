@@ -6,9 +6,9 @@ I *really* like [Boost Note](https://boostnote.io/) and have been happily using 
 
 Thankfully, Boost Note is open source and its file formats are straightforward.  And since [Proton Native](https://proton-native.js.org/)'s current iteration is relatively solid, I was able to put together a user interface that's compatible with my existing notes with much less overhead.
 
-This is *not*, however, a replacement for Boost Note; think of it more as a supplement for it, a minimal tool that can handle the easy work if you already use Boost Note, but not the bigger tasks.
+This is *not*, however, a replacement for Boost Note; think of it more as a supplement for it, a more-minimal tool that can handle the easy work if you already use Boost Note, but not the bigger tasks.
 
-I may improve on it later, but currently, **Miniboost** only allows the user to select a category, select a note, and read/edit the markdown; alternatively, after a category has been selected, it's possible to create a new note.  New categories are also possible.  For new notes, I have *tried* to make sure the titles and timestamps are set correctly, but most of the other features and conveniences that Boost Note provides are unavailable here.  For example, all notes are Markdown notes; I don't use the code notes, so have no idea what they'd look like.
+I may improve on it later, but currently, **Miniboost** only allows the user to select a category, select a note, and read/edit the markdown; alternatively, after a category has been selected, it's possible to create a new note.  New categories are also possible.  For new notes, I have *tried* to make sure that the titles and timestamps are set correctly, but most of the other features and conveniences that Boost Note provides are unavailable here.  For example, all notes are Markdown notes; I don't use the code notes, so have no idea what they'd look like.  I don't even want to *guess* what the program would do with those weird tabbed "code notes."
 
 The odds that this will be useful to anybody else seems low---especially since Proton Native's text editor doesn't seem to be able to handle word wrap---and this was designed around my usual workflow, but if anybody has any improvements, by all means, get involved filing issues and pull requests!
 
@@ -18,6 +18,7 @@ A full configuration file looks something like this, but you don't need to inclu
 
 ```json
 {
+  "autoPreview": false,
   "backgroundColor": "orange",
   "boostdir": "/home/username/Boostnote",
   "exportStyle": "table { border-collapse: collapse; } td,th { border: 1px solid darkgray; }",
@@ -27,7 +28,9 @@ A full configuration file looks something like this, but you don't need to inclu
 }
 ```
 
-`boostdir` is the location where you can find your **Boostnote** notes, in case they're not in the default location.  `exportStyle` is CSS to format notes previewed in the browser.  `interval` is how often **Miniboost** will check to see if the current note has been modified by another program; a negative number means that it never checks.  Note that the text is shown at different sizes, but those sizes are based on the size of the editor's text so that only one size needs to be specified.
+The `autoPreview` flag enables an experimental feature that has the preview page reload in the browser, while adding an option in the user interface to periodically update it.  The `boostdir` directory is the location where you can find your **Boostnote** notes, in case they're not in the default location.  The `exportStyle` is CSS to format notes previewed in the browser.  The `interval` is how often **Miniboost** will check to see if the current note has been modified by another program; a negative number means that it never checks.
+
+Most of the rest should be self-explanatory.  However, note that the text might be shown at different sizes, but those sizes are all based on the size of the editor's text, so that only one size needs to be specified.
 
 Regarding `exportStyle`, you can override the appearance of checkboxes, too, if you don't like the default emoji.  Just override `ul .checked:before` and `ul .unchecked:before` with whatever list bullet styles that you happen to prefer.
 
