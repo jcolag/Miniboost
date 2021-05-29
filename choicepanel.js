@@ -213,7 +213,7 @@ export default class ChoicePanel extends Component {
         title="View in Browser 🌐"
       />;
     const autoButton = (
-      this.state.key === null || this.props.config.autoPreview
+      this.state.key === null || !this.props.config.autoRefresh
     ) ?
       null :
       <Button

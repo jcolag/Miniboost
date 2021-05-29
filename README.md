@@ -18,7 +18,7 @@ A full configuration file looks something like this, but you don't need to inclu
 
 ```json
 {
-  "autoPreview": false,
+  "autoRefresh": false,
   "backgroundColor": "orange",
   "boostdir": "/home/username/Boostnote",
   "exportStyle": "table { border-collapse: collapse; } td,th { border: 1px solid darkgray; }",

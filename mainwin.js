@@ -138,7 +138,7 @@ export default class MainWindow extends Component {
       .replace(
         /\n\s*<li>\s*\[[^\s]*\] /g,
         '\n<li class="checked"> '
-        );
+      );
     let result = `<html><head><title>${this.state.note.title}</title>`;
     if (this.state.config.autoRefresh === true) {
       result += '<meta http-equiv="refresh" content="5">';
