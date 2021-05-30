@@ -130,7 +130,14 @@ export default class MainWindow extends Component {
   displayNote(inBrowser = true) {
     const filename = this.state.tempFiles[this.state.key];
     const html = md
-      .render(this.state.note.content)
+      .render(
+        this
+          .state.note.content
+          .replace(
+            /(#[0-9A-Fa-f]{6})\b/g,
+            '$1 <span class="chip" style="background-color: $1"></span>'
+          )
+      )
       .replace(
         /\n\s*<li>\s*\[\s*\] /g,
         '\n<li class="unchecked"> '
@@ -147,6 +154,8 @@ export default class MainWindow extends Component {
       + ' ul { } '
       + ' ul .checked:before { list-style: none; content: "✅ "; }'
       + ' ul .unchecked:before { list-style: none; content: "🔳 "; }'
+      + ' span.chip { border: 1px solid black; border-radius: 0.25em; '
+      + 'display: inline-block; height: 1em; width: 1em; }'
       + `${this.state.config.exportStyle}`
       + '</style></head>'
       + `<body>${html}</body></html>`;
