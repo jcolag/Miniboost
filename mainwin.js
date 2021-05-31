@@ -25,11 +25,11 @@ export default class MainWindow extends Component {
   constructor(props) {
     let config = {
       autoRefresh: false,
-      backgroundColor: 'black',
+      backgroundColor: '#eee8d5',
       boostdir: path.join(homedir, 'Boostnote'),
       exportStyle: '',
       fontSize: 18,
-      foregroundColor: 'white',
+      foregroundColor: '#268bd2',
       interval: 250,
     };
 
