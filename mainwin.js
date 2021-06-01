@@ -149,7 +149,7 @@ export default class MainWindow extends Component {
       );
     let result = `<html><head><title>${this.state.note.title}</title>`;
     if (this.state.config.autoRefresh === true) {
-      result += '<meta http-equiv="refresh" content="5">';
+      result += '<meta http-equiv="refresh" content="12">';
     }
     result += '<style>'
       + ' ul { } '
