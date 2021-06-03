@@ -10,7 +10,7 @@ import ChoicePanel from './choicepanel';
 const CSON = require('cson');
 const MarkdownIt = require('markdown-it');
 const fs = require('fs');
-const opn = require('opn');
+const opn = require('open');
 const path = require('path');
 const tmp = require('tmp');
 const homedir = require('os').homedir();
