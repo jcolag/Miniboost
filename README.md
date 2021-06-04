@@ -24,7 +24,8 @@ A full configuration file looks something like this, but you don't need to inclu
   "exportStyle": "table { border-collapse: collapse; } td,th { border: 1px solid darkgray; }",
   "fontSize": 12,
   "foregroundColor": "blue",
-  "interval": 100
+  "interval": 100,
+  "textColor": 'green',
 }
 ```
 

@@ -31,7 +31,7 @@ export default class MainWindow extends Component {
       fontSize: 18,
       foregroundColor: '#268bd2',
       interval: 250,
-      textColor: '#586e75',
+      textColor: '#839496',
     };
 
     super(props);
