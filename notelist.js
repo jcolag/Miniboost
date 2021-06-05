@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {decode} from "html-entities";
 import {
   Picker,
   Text,
@@ -71,7 +72,7 @@ export default class NoteList extends Component {
           { notes.map((note, idx) => {
             return <Picker.Item
               key={ note.key }
-              label={ note.title }
+              label={ decode(note.title.replace(/\\/g, '')) }
               value={ note.key }
             />
           }) }
