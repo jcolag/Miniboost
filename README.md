@@ -25,7 +25,7 @@ A full configuration file looks something like this, but you don't need to inclu
   "fontSize": 12,
   "foregroundColor": "blue",
   "interval": 100,
-  "textColor": 'green',
+  "textColor": "green",
 }
 ```
 
