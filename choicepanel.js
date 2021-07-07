@@ -53,7 +53,7 @@ export default class ChoicePanel extends Component {
       const note = CSON.parse(file);
 
       note.stats = fs.statSync(filepath);
-      if (note.folder === key) {
+      if (note.folder === key && note.type !== 'SNIPPET_NOTE') {
         note.key = filename;
         inCat.push(note);
       }
