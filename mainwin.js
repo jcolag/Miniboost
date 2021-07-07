@@ -148,8 +148,9 @@ export default class MainWindow extends Component {
         '\n<li class="checked"> '
       );
     let result = `<html><head><title>${this.state.note.title}</title>`;
+    result += '<meta charset="utf-8">';
     if (this.state.config.autoRefresh === true) {
-      result += '<meta http-equiv="refresh" content="12">';
+      result += '<script>setTimeout(() => location.reload(), 12000);</script>'
     }
     result += '<style>'
       + ' ul { } '
