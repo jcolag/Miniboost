@@ -19,7 +19,11 @@ const md = new MarkdownIt({
   html: true,
   linkify: true,
   typographer: true,
-});
+})
+  .use(require('markdown-it-anchor'))
+  .use(require('markdown-it-table-of-contents'), {
+    includeLevel: [2,3,4,5,6]
+  });
 
 export default class MainWindow extends Component {
   constructor(props) {
