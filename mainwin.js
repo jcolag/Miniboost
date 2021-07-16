@@ -93,7 +93,7 @@ export default class MainWindow extends Component {
       clearInterval(this.state.autoTimer);
     }
     if (!Object.prototype.hasOwnProperty.call(tempFiles, key)) {
-      tempFiles[key] = tmp.tmpNameSync();
+      tempFiles[key] = tmp.tmpNameSync({ prefix: 'mb-', postfix: '.html' });
     }
     this.setState({
       autoPreview: false,
