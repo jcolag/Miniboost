@@ -161,7 +161,8 @@ export default class MainWindow extends Component {
       + ' ul .checked:before { list-style: none; content: "✅ "; }'
       + ' ul .unchecked:before { list-style: none; content: "🔳 "; }'
       + ' span.chip { border: 1px solid black; border-radius: 0.25em; '
-      + 'display: inline-block; height: 1em; width: 1em; }'
+      + 'display: inline-block; height: 1em; margin-bottom: -0.2em; '
+      + 'width: 1em; }'
       + `${this.state.config.exportStyle}`
       + '</style></head>'
       + `<body>${html}</body></html>`;
