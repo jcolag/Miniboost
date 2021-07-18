@@ -36,6 +36,7 @@ export default class MainWindow extends Component {
       foregroundColor: '#268bd2',
       interval: 250,
       textColor: '#839496',
+      textSize: 18,
     };
 
     super(props);
@@ -253,7 +254,7 @@ export default class MainWindow extends Component {
                 border: '1px solid ' + this.state.config.foregroundColor,
                 color: this.state.config.textColor,
                 display: this.state.note === null ? 'none' : 'visible',
-                fontSize: `${this.state.config.fontSize}pt`,
+                fontSize: `${this.state.config.textSize}pt`,
                 height: '100%',
                 width: '85%',
               }}
