@@ -154,6 +154,9 @@ export default class MainWindow extends Component {
       );
     let result = `<html><head><title>${this.state.note.title}</title>`;
     result += '<meta charset="utf-8">';
+    if (Object.prototype.hasOwnProperty.call(this.state.config, 'fontAwesomeKit')) {
+      result += this.state.config.fontAwesomeKit;
+    }
     if (this.state.config.autoRefresh === true) {
       result += '<script>setTimeout(() => location.reload(), 12000);</script>'
     }
