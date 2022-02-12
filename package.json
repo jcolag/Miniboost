@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "cson": "^7.20.0",
+    "emoji-name-map": "^1.2.9",
     "html-entities": "^2.3.2",
     "markdown-it": "^12.3.2",
     "markdown-it-anchor": "^8.1.0",

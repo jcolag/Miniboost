@@ -8,6 +8,7 @@ import {
 import ChoicePanel from './choicepanel';
 
 const CSON = require('cson');
+const emojiMap = require('emoji-name-map');
 const MarkdownIt = require('markdown-it');
 const fs = require('fs');
 const opn = require('open');
@@ -142,6 +143,10 @@ export default class MainWindow extends Component {
           .replace(
             /(#[0-9A-Fa-f]{6})\b/g,
             '$1 <span class="chip" style="background-color: $1"></span>'
+          )
+          .replace(
+            /:([0-9A-Za-z_+:;()'/|-]+):/g,
+            (m, p1, offset, string) => emojiMap.get(p1)
           )
       )
       .replace(
