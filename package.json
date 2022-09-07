@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "babel-node index.js",
-    "dev": "export NODE_OPTIONS=--openssl-legacy-provider; webpack --mode=development ",
+    "dev": "export TMPDIR=~/Downloads/.miniboost;export NODE_OPTIONS=--openssl-legacy-provider; webpack --mode=development ",
     "webpackRun": "babel-node dist/index.out.js",
     "build": "babel index.js -d bin/"
   },
