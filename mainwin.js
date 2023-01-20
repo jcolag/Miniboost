@@ -232,8 +232,8 @@ export default class MainWindow extends Component {
         <Window
           style={{
             backgroundColor: this.state.config.backgroundColor,
-            height: '75%',
-            width: this.state.note === null ? '10%' : '75%',
+            height: '576',
+            width: this.state.note === null ? '137' : '1024',
           }}
         >
           <View style={{
