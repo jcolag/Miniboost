@@ -17,8 +17,8 @@
     "markdown-it-table-of-contents": "^0.5.2",
     "open": "^6.0.0",
     "proton-native": "^2.0.4",
-    "tmp": "^0.2.7",
-    "uuid": "^8.3.1"
+    "tmp": "^0.2.4",
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.11.6",
